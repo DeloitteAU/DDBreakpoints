@@ -1,0 +1,240 @@
+/**
+ * Breakpoints for JavaScript. Works with the Deloitte Digital SCSS @bp mixin
+ *
+ * @version 1.0.0
+ * @copyright 2012-2014 Deloitte Digital Australia - http://www.deloittedigital.com/au
+ * @author Deloitte Digital Australia deloittedigital@deloitte.com.au
+ * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+// Global variables
+$IS_RESPONSIVE: true !default;
+$FONT_BASE: 16 !default;
+
+// Breakpoint options. Widths in PX to be mapped to the named sizes below.
+// Generally you shouldn't need to change the defaults
+$bp-xxs-min: 359 !default;
+$bp-xs-min: 480 !default;
+$bp-s-min: 640 !default;
+$bp-m-min: 768 !default;
+$bp-l-min: 1024 !default;
+$bp-xl-min: 1244 !default;
+$bp-xxl-min: 1410 !default;
+
+
+// Get the max of the breakpoint by taking 1px from the min of the next breakpoint
+$bp-xxs-max: $bp-xs-min - 1;
+$bp-xs-max: $bp-s-min - 1;
+$bp-s-max: $bp-m-min - 1;
+$bp-m-max: $bp-l-min - 1;
+$bp-l-max: $bp-xl-min - 1;
+$bp-xl-max: $bp-xxl-min - 1;
+
+// The list of breakpoints (order doesn't matter). If you add another
+// breakpoint be sure to add it here too
+$bp-list-min: xxs $bp-xxs-min, xs $bp-xs-min, s $bp-s-min, m $bp-m-min, l $bp-l-min, xl $bp-xl-min, xxl $bp-xxl-min;
+$bp-list-max: xxs $bp-xxs-max, xs $bp-xs-max, s $bp-s-max, m $bp-m-max, l $bp-l-max, xl $bp-xl-max;
+
+// Range for the static stylesheet to use. Is used when $IS_RESPONSIVE is equal to false
+// and ignores breakpoints outside of the specified range
+$bp-static-min: 0 !default;
+$bp-static-max: $bp-xl-max !default;
+
+// Range for the print stylesheet to use. It applies @media screen to breakpoints outside of this
+$bp-print-min: 0 !default;
+$bp-print-max: 550 !default;
+
+
+// Adds the em unit to a number
+@function bp-add-em($number) {
+	@return #{$number}em;
+}
+
+// Converts px to ems using the $FONT_BASE global variable
+@function bp-px-to-ems($px) {
+	@return $px / $FONT_BASE;
+}
+
+// Converts a bp name (e.g. l) to the px variable then to ems
+@function bp-to-ems($point, $ismax: false) {
+	@if type_of($point) == 'number' {
+		@return bp-px-to-ems($point);
+	}
+
+	$list: $bp-list-min;
+
+	@if $ismax == true {
+		$list: $bp-list-max;
+	}
+
+	$width: 1em;
+
+	@each $item in $list {
+		@if(nth($item, 1) == $point) {
+			$width: bp-px-to-ems(nth($item, 2));
+		}
+	}
+
+	@return $width;
+}
+
+// check if the bp provided falls inside the valid min/max region
+@function bp-is-valid-between($valid-min, $valid-max, $min, $max: 0, $property: width) {
+	// ignore height media queries
+	@if ($property != width) {
+		@return false;
+	}
+
+	// setup em values for all breakpoints
+	$valid-min-ems: bp-to-ems($valid-min);
+	$valid-max-ems: bp-to-ems($valid-max);
+	$min-ems: bp-to-ems($min);
+	$max-ems: bp-to-ems($max);
+
+	// if max is 0 we have a min-and-above situation
+	@if ($max == 0) {
+		@if ($min-ems >= $valid-min-ems) {
+			@return true;
+		}
+
+		@return false;
+	}
+
+	// if min is 0 we have a max-and-below situation
+	@if ($min == 0) {
+		@if ($max-ems >= $valid-max-ems) {
+			@return true;
+		}
+
+		@return false;
+	}
+
+	// if the min is above the valid max, or the max is below the valid min
+	@if ($min-ems > $valid-max-ems) or ($max-ems < $valid-min-ems) {
+		@return false;
+	}
+
+	// if the breakpoint is a bp-between (assumed because $max and $min aren't 0)
+	// don't show if the max isn't above the valid max
+	@if ($max-ems < $valid-max-ems) {
+		@return false;
+	}
+
+	@return true;
+}
+
+// check if the content should be in the print stylesheet
+@function bp-is-print($min, $max: 0, $property: width) {
+	@return bp-is-valid-between($bp-print-min, $bp-print-max, $min, $max, $property);
+}
+
+// check if the content should be in the static stylesheet
+@function bp-is-static($min, $max: 0, $property: width) {
+	@return bp-is-valid-between($bp-static-min, $bp-static-max, $min, $max, $property);
+}
+
+// returns a min-width media query based on bp name or px
+@mixin bp-min($min, $property: width) {
+	@if $IS_RESPONSIVE == true {
+		$bp-min: bp-add-em(bp-to-ems($min, false));
+
+		$bp-type: min-#{$property};
+
+		@if bp-is-print($min, 0, $property) {
+			@media ($bp-type: $bp-min) { @content; }
+		} @else {
+			@media only screen and ($bp-type: $bp-min) { @content; }
+		}
+	} @else {
+		@if bp-is-static($min, 0, $property) {
+			@if bp-is-print($min, 0, $property) {
+				@content;
+			} @else {
+				@media screen { @content; }
+			}
+		}
+	}
+}
+
+// returns a max-width media query based on bp name or px
+@mixin bp-max($max, $property: width) {
+	@if $IS_RESPONSIVE == true {
+		$bp-max: bp-add-em(bp-to-ems($max, true));
+
+		$bp-type: max-#{$property};
+
+		@if bp-is-print(0, $max, $property) {
+			@media ($bp-type: $bp-max) { @content; }
+		} @else {
+			@media only screen and ($bp-type: $bp-max) { @content; }
+		}
+	} @else {
+		@if bp-is-static(0, $max, $property) {
+			@if bp-is-print(0, $max, $property) {
+				@content;
+			} @else {
+				@media screen { @content; }
+			}
+		}
+	}
+}
+
+// returns a min-width and max-width media query based on bp name (can be the same bp name) or px
+@mixin bp-between($min, $max, $property: width) {
+	@if $IS_RESPONSIVE == true {
+		$bp-min: bp-add-em(bp-to-ems($min, false));
+		$bp-max: bp-add-em(bp-to-ems($max, true));
+
+		$bp-type-min: min-#{$property};
+		$bp-type-max: max-#{$property};
+
+		@if bp-is-print($min, $max, $property) {
+			@media ($bp-type-min: $bp-min) and ($bp-type-max: $bp-max) { @content; }
+		} @else {
+			@media only screen and ($bp-type-min: $bp-min) and ($bp-type-max: $bp-max) { @content; }
+		}
+	} @else {
+		@if bp-is-static($min, $max, $property) {
+			@if bp-is-print($min, $max, $property) {
+				@content;
+			} @else {
+				@media screen { @content; }
+			}
+		}
+	}
+}
+
+// main width based breakpoint mixin - can use both px (will be converted to ems) or breakpoints names (e.g. s, m, l)
+@mixin bp($min, $max:0, $property: width) {
+	@if $min == retina or $min == hdpi {
+		// if the first variable is "retina" then we don't need the standard bp mixin
+		@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-device-pixel-ratio: 1.5) { @content; }
+	} @else if $min == static {
+		@if $IS_RESPONSIVE == false {
+			@content;
+		};
+	} @else if $max == 0 {
+		// @include bp(l); if the second variable is blank or 0, we want min (e.g. large and above)
+		@include bp-min($min, $property) {
+			@content;
+		};
+	} @else if $min == 0 {
+		// @include bp(0, l); if the first variable is 0, we want max (e.g. large and below)
+		@include bp-max($max, $property) {
+			@content;
+		};
+	} @else {
+		// @include bp(s, l); if both variables are different, we want between (e.g. small to large)
+		// @include bp(l, l); if both are the same, we want just that breakpoint (e.g. large)
+		@include bp-between($min, $max, $property) {
+			@content;
+		};
+	}
+}
+
+// height based breakpoint mixin - can use px (will be converted to ems)
+@mixin bph($min, $max:0) {
+	@include bp($min, $max, height) {
+		@content;
+	}
+}
