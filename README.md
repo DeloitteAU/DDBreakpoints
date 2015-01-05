@@ -10,16 +10,9 @@
 	 |____/ |_| \__, ||_| \__|\__,_||_|          
 	            |___/                            
 
-<<<<<<< HEAD
-
 #DDBreakpoints Overview
-We use this SCSS Mixin and JavaScript to simplify creating responsive websites. //TODO: write more about the mixin
 
-#Getting Started
-
-We believe that clearly-written and well-commented code, beats extensive documentation. If you're interested in reading a little more about this library and trying out some examples, please visit our [Examples page](https://github.com/deloittedigital/ddbreakpoints).
-=======
-This repo is home to our Breakpoints SCSS Mixin and JavaScript that Deloitte Digital Australia use to simplify creating responsive websites
+This repo is home to our Breakpoints SCSS Mixin and JavaScript. We use this to simplify creating responsive websites.
 
 We were inspired to create DDBreakpoints back in May 2013 by Chris Coyier's CSS-Tricks article [Naming Media Queries](http://css-tricks.com/naming-media-queries/)
 
@@ -31,8 +24,7 @@ Hence, DDBreakpoints was born in late 2013 and is now used on every responsive p
 
 #Getting Started
 
-See the documentation and demo code at http://deloittedigital.github.io/DDBreakpoints
->>>>>>> 2997431cf67915fb5250bc6dc776989ef6addfcf
+We believe that clearly-written and well-commented code, beats extensive documentation. If you're interested in reading a little more about this library and trying out some examples, please visit our [Examples page](https://github.com/deloittedigital/ddbreakpoints).
 
 #Who is [Deloitte Digital](http://www.deloittedigital.com) anyway?
 
@@ -41,15 +33,9 @@ See the documentation and demo code at http://deloittedigital.github.io/DDBreakp
 Pioneered in Australia, Deloitte Digital is committed to helping clients unlock the business value of emerging technologies. We provide clients with a full suite of digital services, covering digital strategy, user experience, content, creative, engineering and implementation across mobile, web and social media channels.
 
 #LICENSE (BSD-3-Clause)
-<<<<<<< HEAD
 Copyright (C) 2015, Deloitte Digital. All rights reserved.
 
 DDBreakpoints can be downloaded from: https://github.com/DeloitteDigital/DDBreakpoints
-=======
-Copyright (C) 2009-2014, Deloitte Digital. All rights reserved.
-
-DDAbstract can be downloaded from: https://github.com/DeloitteDigital/DDAbstract
->>>>>>> 2997431cf67915fb5250bc6dc776989ef6addfcf
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
