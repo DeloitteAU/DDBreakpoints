@@ -13,7 +13,7 @@ Hence, DDBreakpoints was born in late 2013 and is now used on every responsive p
 
 #Getting Started
 
-See the documentation and demo code at http://deloittedigital.github.io/DDBreakpoints
+See the documentation and demo code at http://deloittedigital.github.io/DDBreakpoints (_in progress_)
 
 #Who is [Deloitte Digital](http://www.deloittedigital.com) anyway?
 
@@ -24,7 +24,7 @@ Pioneered in Australia, Deloitte Digital is committed to helping clients unlock 
 #LICENSE (BSD-3-Clause)
 Copyright (C) 2009-2014, Deloitte Digital. All rights reserved.
 
-DDAbstract can be downloaded from: https://github.com/DeloitteDigital/DDAbstract
+DDBreakpoints can be downloaded from: https://github.com/DeloitteDigital/DDBreakpoints
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
