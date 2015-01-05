@@ -12,7 +12,7 @@
 
 #DDBreakpoints Overview
 
-This repo is home to our Breakpoints tool, which is made up of an SCSS Mixin and some JavaScript. We use this tool to simplify our build process for creating responsive websites.
+This repo is home to our Breakpoints tool, which is made up of an SCSS Mixin and some JavaScript. We use this tool to accelerate our development process when creating responsive websites and webapps - it also helps us simplify consistency accross all of our projects.
 
 We were inspired to create DDBreakpoints back in May 2013, as a result of Chris Coyier's CSS-Tricks article [Naming Media Queries](http://css-tricks.com/naming-media-queries/).
 
