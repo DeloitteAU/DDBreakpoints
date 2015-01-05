@@ -1,0 +1,18 @@
+@import "compass";
+@import "../../dd.breakpoints";
+
+// small and above
+.example {
+	@include bp(s) {
+		background-color: #f00;
+	}
+
+	@include bp(m) {
+		background-color: #0f0;
+	}
+
+	@include bp(l) {
+		background-color: #00f;
+	}
+}
+

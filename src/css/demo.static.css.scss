@@ -1,0 +1,8 @@
+/*
+ * Static stylesheet
+ * This stylesheet is included in browsers that don't support media queries
+ */
+
+$IS_RESPONSIVE: false;
+
+@import "examples"
