@@ -1,10 +1,7 @@
 DDBreakpoints
 =============
 
-Breakpoints SCSS Mixin and JavaScript tool to simplify creating responsive websites created and maintained by Deloitte Digital Australia
-
-#DDBreakpoints Overview
-This repo is home to our SCSS and JavaScript tools that we use as a base for all of our responsive projects.
+This repo is home to our Breakpoints SCSS Mixin and JavaScript that Deloitte Digital Australia use to simplify creating responsive websites
 
 We were inspired to create DDBreakpoints back in May 2013 by Chris Coyier's CSS-Tricks article [Naming Media Queries](http://css-tricks.com/naming-media-queries/)
 
@@ -12,7 +9,7 @@ As we built more responsive websites our philosophy of creating responsive sites
 
 While we always followed the mobile first mentality, sometimes we would find that we'll need to add an "and-below" breakpoint for edge cases, so our breakpoints mixin was getting overly large and repetitively complex.
 
-Hence, DDBreakpoints was born in late 2013 and is now used on every responsive project by Deloitte Digital in Australia.
+Hence, DDBreakpoints was born in late 2013 and is now used on every responsive project by Deloitte Digital in Australia, and now, available for your projects too.
 
 #Getting Started
 
