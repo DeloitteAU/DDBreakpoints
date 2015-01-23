@@ -93,7 +93,9 @@ $bp-print-max: 550 !default;
 
 	// if max is 0 we have a min-and-above situation
 	@if ($max == 0) {
-		@if ($min-ems >= $valid-min-ems) {
+		// need to check that the min is greater than the valid min,
+		// AND also that the min is less than the valid maximum
+		@if ($min-ems >= $valid-min-ems) and ($min-ems < $valid-max-ems) {
 			@return true;
 		}
 
