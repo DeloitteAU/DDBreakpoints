@@ -62,7 +62,7 @@ But if you have to, you can go large first too:
 
 ```css
 .module {
-    /* desktop styles
+    /* desktop styles */
 
     @include bp(0, l) {
         /* large and below styles */
@@ -135,9 +135,11 @@ And you can also check against heights too
 
 ### JavaScript
 
-There are two main functions for the JS library. The ability to GET a media query and CHECK if the viewport currently matches a given breakpoint.
+There are two main functions for the JS library.
 
 #### .get()
+
+Returns the string of the media query. Useful for using with tools like [enquire.js](https://github.com/WickyNilliams/enquire.js).
 
 ```javascript
 DD.bp.get(min /* string || number */, max = 0 /* string || number */, property = 'width' /* string */);
@@ -150,6 +152,8 @@ DD.bp.getHeight(min /* string || number */, max = 0 /* string || number */);
 ```
 
 #### .is()
+
+Returns true if the page is within the current media query. Uses `window.matchMedia(MEDIA_QUERY).matches` so use a polyfill if you need one. 
 
 ```javascript
 DD.bp.is(min /* string || number */, max = 0 /* string || number */, property = 'width' /* string */);
