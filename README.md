@@ -119,7 +119,42 @@ And you can also check against heights too
 
 #### Options
 
-*Coming soon*
+You can customise a number of options in the SCSS. When doing this, if you're also using the JS library, make sure you update the values to match there as well.
+
+##### Flags
+
+Set these flags early in the document, they can be included after you include the breakpoint scss file, however should be set before any usage of the mixin.
+
+```
+$IS_RESPONSIVE: true; // [boolean] tells the mixin to either export media queries or not
+$FONT_BASE: 16; // [number] base font size (in px) of your site
+```
+
+##### Breakpoints
+
+The default breakpoints can be updated simply by editing the following variables. These should be set *before* the scss mixin is included into the page.
+
+These default values have been chosen because they are the most common screen resolutions that we normally support.
+
+```
+$bp-xxs-min: 359; 
+$bp-xs-min: 480; 
+$bp-s-min: 640;
+$bp-m-min: 768; // iPad portrait
+$bp-l-min: 1024; // iPad landscape
+$bp-xl-min: 1244; // 1280px screen resolution minus scrollbars
+$bp-xxl-min: 1410; // 1440px screen resolution minus scrollbars
+```
+
+You can also completely customise your list by setting the following:
+
+```
+// customised - max numbers are the next breakpoints min minus 1px
+$bp-list-min: small 359, medium 768, large 1024, xlarge 1244;
+$bp-list-max: small 767, medium 1023, large 1243;
+```
+
+You don't need to set a maximum of the highest breakpoint.
 
 ### JavaScript
 
