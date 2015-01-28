@@ -31,7 +31,7 @@ At the most basic level, everything comes from a single mixin:
 
 ```css
 @include bp($min, $max:0, $property:width) {
-    // your styles here
+    /* your styles here */
 }
 ```
 
@@ -39,19 +39,21 @@ The recommended usage for the mixin is to go mobile first:
 
 ```css
 .module {
-    // base styles
+    /* base styles */
 
     @include bp(m) {
-        // medium styles
+        /* medium styles */
     }
     
     @include bp(l) {
-        // large styles
+        /* large styles */
     }
 
     @include bp(xl) {
-        // extra large styles
-        // not included in the static sheet
+        /* 
+           extra large styles
+           not included in the static sheet
+        */
     }
 }
 ```
@@ -60,20 +62,24 @@ But if you have to, you can go large first too:
 
 ```css
 .module {
-    // desktop styles
+    /* desktop styles
 
     @include bp(0, l) {
-        // large and below styles
+        /* large and below styles */
     }
 
     @include bp(0, m) {
-        // medium and below styles
-        // not included in the static sheet
+       /* 
+          medium and below styles
+          not included in the static sheet
+        */
     }
 
     @include bp(0, s) {
-        // small and below styles
-        // not included in the static sheet
+        /* 
+           small and below styles
+           not included in the static sheet
+         */
     }
 }
 ```
@@ -82,20 +88,24 @@ You can even use pixel based widths mixed with breakpoint names.
 
 ```css
 .module {
-    // base styles
+    /* base styles */
 
     @include bp(300, m) {
-        // between 300px (in ems) and medium breakpoint
-        // not included in the static sheet
+        /* 
+           between 300px (in ems) and medium breakpoint
+           not included in the static sheet
+         */
     }
 
     @include bp(m, 2000) {
-        // between medium breakpoint and 2000px (in ems)
+        /* between medium breakpoint and 2000px (in ems) */
     }
 
     @include bp(200, 250) {
-        // be as specific as you need
-        // not included in the static sheet
+        /* 
+           be as specific as you need
+           not included in the static sheet
+         */
     }
 }
 ```
@@ -104,15 +114,17 @@ And you can also check against heights too
 
 ```css
 .module {
-    // base styles
+    /* base styles */
 
     @include bp(0, 500, height) {
-        // between 0 and 500px high
-        // height breakpoints are never included in the static sheet
+        /* 
+           between 0 and 500px high
+           height breakpoints are never included in the static sheet
+         */
     }
 
     @include bph(0, 500) {
-        // exactly the same as above - shortcut
+        /* exactly the same as above - shortcut */
     }
 }
 ```
