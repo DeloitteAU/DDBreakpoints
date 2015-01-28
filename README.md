@@ -1,4 +1,4 @@
-![Deloitte Digital](http://www.deloittedigital.com/au/images/logo-white.png)
+![Deloitte Digital](https://www.deloittedigital.com/au/images/logo-white.png)
 
 # DDBreakpoints
 Breakpoints SCSS Mixin and JavaScript library, used to accelerate and simplify media query development during the development process of responsive pages.
