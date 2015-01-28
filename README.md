@@ -158,12 +158,24 @@ You don't need to set a maximum of the highest breakpoint.
 
 ### JavaScript
 
-There are two main functions for the JS library. The ability to GET a media query and CHECK if the viewport currently matches a given breakpoint.
+There are two main functions for the JS library.
 
 #### .get()
 
+Returns the media query as a string. Perfect for use with [enquire.js](http://wicky.nillia.ms/enquire.js/).
+
+You can pass through the same values as the SCSS, however you can also pass through a single string of comma separated values which can be passed through dynamically like from `data-` attributes.
+
 ```javascript
 DD.bp.get(min /* string || number */, max = 0 /* string || number */, property = 'width' /* string */);
+
+// examples
+DD.bp.get('s');
+DD.bp.get('s', 'l');
+DD.bp.get(0, 500);
+
+// string notation
+DD.bp.get('s,l');
 ```
 
 There is also a shortcut function for height based media queries
@@ -174,8 +186,18 @@ DD.bp.getHeight(min /* string || number */, max = 0 /* string || number */);
 
 #### .is()
 
+Returns a boolean indicating if the current viewport matches the requested media query. This uses `window.matchMedia().matches` so use a [polyfill](https://github.com/paulirish/matchMedia.js/) if you need one.
+
 ```javascript
 DD.bp.is(min /* string || number */, max = 0 /* string || number */, property = 'width' /* string */);
+
+// examples
+DD.bp.is('s');
+DD.bp.is('s', 'l');
+DD.bp.is(0, 500);
+
+// string notation
+DD.bp.is('s,l');
 ```
 
 There is also a shortcut function for height based media queries
@@ -211,6 +233,37 @@ DD.bp.options({
 ```
 
 Make sure to ensure that the values used here match the values used in the SCSS.
+
+## Change log
+
+`1.0.0` - 4th Feb 2015
+
+* Public release
+* Documentation
+* Cleanup
+* Automatic calculation of display logic for non-responsive stylesheets (previously was manual)
+* Added height based breakpoints
+
+`0.1.1` - July 2014
+
+* Added support for inputting px based integers instead of just breakpoint names (suggested by @conhuynh)
+
+`0.1.0` - June 2014
+
+* Large rewrite
+* Dynamically generate breakpoints without multiple IF statements
+* Updated default number of breakpoints to 8
+* Include printer support
+* Changed the mixin name to `bp` to reduce RSI
+
+`0.0.2` - August 2013
+
+* Added check for responsive flag.
+* Moved static and responsive code into a single mixin
+
+`0.0.1` - May 2013
+
+* Initial build. Inspired by http://css-tricks.com/naming-media-queries/
 
 ## Want to contribute?
 
