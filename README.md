@@ -234,7 +234,7 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
-`1.0.0` - 4th Feb 2015
+`1.0.0` - Feb 2015
 
 * Public release
 * Documentation
