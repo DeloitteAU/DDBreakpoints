@@ -8,14 +8,12 @@ The SCSS and JS also allow for the ability to create static (non-responsive) sty
 ## Getting Started
 
 ### Install via Bower
-*We're adding it to Bower soon! Watch this space*
 
-<!--
 To install via the [bower](http://twitter.github.com/bower/) package repository, enter the following at the command line:
+
 ```
-bower install dd-breakpoints
+bower install ddbreakpoints
 ```
--->
 
 ### SCSS
 
