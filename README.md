@@ -234,6 +234,10 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
+`1.0.1` - Feb 2015
+
+* Update to resolve issue with Bower getting an old tag
+
 `1.0.0` - Feb 2015
 
 * Public release
