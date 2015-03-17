@@ -234,6 +234,10 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
+`1.0.2` - March 2015
+
+* Minor bug fix in options function, to allow setting of custom breakpoints.
+
 `1.0.1` - Feb 2015
 
 * Update to resolve issue with Bower getting an old tag
