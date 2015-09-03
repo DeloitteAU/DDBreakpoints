@@ -234,6 +234,10 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
+`1.0.3`/ & `1.0.4` - September 2015
+
+* Publish on npm.
+
 `1.0.2` - March 2015
 
 * Minor bug fix in options function, to allow setting of custom breakpoints.
