@@ -1,8 +1,10 @@
 {
   "name": "DDBreakpoints",
+  "version": "1.0.3",
   "description": "Breakpoints SCSS Mixin and JavaScript tool, used to accelerate the development process of responsive pages.",
   "homepage": "http://deloittedigital.github.io/DDBreakpoints",
   "license" : "BSD-3-Clause",
+  "main": "lib/dd.breakpoints.js",
   "devDependencies": {
     "grunt-gh-pages": "^0.9.1"
   },
