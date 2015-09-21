@@ -204,6 +204,24 @@ There is also a shortcut function for height based media queries
 DD.bp.isHeight(min /* string || number */, max = 0 /* string || number */);
 ```
 
+#### .at()
+
+Will run a couple of functions depending on if the breakpoint is matched or not. This uses `enquire.js` so make sure to include the [library](http://wicky.nillia.ms/enquire.js/) if you need it.
+
+```javascript
+DD.bp.at(bp /* string */, attach = function() {}, property = function() {});
+
+// examples
+DD.bp.at('m,l', doWhenAttached, doWhenNotAttached);
+DD.bp.at('0,l', function(init) {
+    console.log('fire when the screen is between 0 and l');
+    console.log('if init === true, you can change the required code to stop inital screen flicker', init);
+}, function(init) {
+    console.log('fire when the screen is NOT between 0 and l');
+    console.log('if init === true, you can change the required code to stop inital screen flicker', init);
+});
+```
+
 #### .options()
 
 You can customise the JavaScript library by using the `options()` method.
@@ -233,6 +251,10 @@ DD.bp.options({
 Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
+
+`1.1.0` - October 2015
+
+* Added code for Media Query Attach/Detach (taken from the Deloitte Digital FED framework)
 
 `1.0.3` & `1.0.4` - September 2015
 
