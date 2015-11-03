@@ -19,7 +19,7 @@ bower install ddbreakpoints
 
 Import the SCSS into your own project
 
-```css
+```scss
 @import 'dd-breakpoints';
 ```
 
@@ -27,7 +27,7 @@ Import the SCSS into your own project
 
 At the most basic level, everything comes from a single mixin:
 
-```css
+```scss
 @include bp($min, $max:0, $property:width) {
     // your styles here
 }
@@ -35,7 +35,7 @@ At the most basic level, everything comes from a single mixin:
 
 The recommended usage for the mixin is to go mobile first:
 
-```css
+```scss
 .module {
     // base styles
 
@@ -56,7 +56,7 @@ The recommended usage for the mixin is to go mobile first:
 
 But if you have to, you can go large first too:
 
-```css
+```scss
 .module {
     // desktop styles
 
@@ -78,7 +78,7 @@ But if you have to, you can go large first too:
 
 You can even use pixel based widths mixed with breakpoint names.
 
-```css
+```scss
 .module {
     // base styles
 
@@ -100,7 +100,7 @@ You can even use pixel based widths mixed with breakpoint names.
 
 And you can also check against heights too
 
-```css
+```scss
 .module {
     // base styles
 
@@ -123,7 +123,7 @@ You can customise a number of options in the SCSS. When doing this, if you're al
 
 Set these flags early in the document, they can be included after you include the breakpoint scss file, however should be set before any usage of the mixin.
 
-```
+```scss
 $IS_RESPONSIVE: true; // [boolean] tells the mixin to either export media queries or not
 $FONT_BASE: 16; // [number] base font size (in px) of your site
 ```
@@ -134,7 +134,7 @@ The default breakpoints can be updated simply by editing the following variables
 
 These default values have been chosen because they are the most common screen resolutions that we normally support.
 
-```
+```scss
 $bp-xxs-min: 359; 
 $bp-xs-min: 480; 
 $bp-s-min: 640;
@@ -146,7 +146,7 @@ $bp-xxl-min: 1410; // 1440px screen resolution minus scrollbars
 
 You can also completely customise your list by setting the following:
 
-```
+```scss
 // customised - max numbers are the next breakpoints min minus 1px
 $bp-list-min: small 359, medium 768, large 1024, xlarge 1244;
 $bp-list-max: small 767, medium 1023, large 1243;
@@ -158,7 +158,7 @@ You don't need to set a maximum of the highest breakpoint.
 
 There are two main functions for the JS library.
 
-#### .get()
+#### `.get()`
 
 Returns the media query as a string. Perfect for use with [enquire.js](http://wicky.nillia.ms/enquire.js/).
 
@@ -182,7 +182,7 @@ There is also a shortcut function for height based media queries
 DD.bp.getHeight(min /* string || number */, max = 0 /* string || number */);
 ```
 
-#### .is()
+#### `.is()`
 
 Returns a boolean indicating if the current viewport matches the requested media query. This uses `window.matchMedia().matches` so use a [polyfill](https://github.com/paulirish/matchMedia.js/) if you need one.
 
@@ -204,7 +204,7 @@ There is also a shortcut function for height based media queries
 DD.bp.isHeight(min /* string || number */, max = 0 /* string || number */);
 ```
 
-#### .options()
+#### `.options()`
 
 You can customise the JavaScript library by using the `options()` method.
 
