@@ -47,7 +47,11 @@ $bp-print-max: 550 !default;
 
 // Adds the em unit to a number
 @function bp-add-em($number) {
-	@return #{$number}em;
+	@if type_of($number) == "number" {
+		@return $number / ($number * 0 + 1) + 0em;
+	} @else {
+		@error "Expected number but was passed #{type_of($number)}: #{$number}"
+	}
 }
 
 // Converts px to ems using the $FONT_BASE global variable
