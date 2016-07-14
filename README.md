@@ -234,6 +234,10 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
+`1.0.5` - July 2016
+
+* Migrate GitHub organisation to: DeloitteDigitalAPAC.
+
 `1.0.3` & `1.0.4` - September 2015
 
 * Publish on npm.
