@@ -1,7 +1,7 @@
 {
   "name": "DDBreakpoints",
   "version": "1.0.4",
-  "homepage": "https://github.com/DeloitteDigital/DDBreakpoints",
+  "homepage": "https://github.com/DeloitteDigitalAPAC/DDBreakpoints",
   "authors": [ "Deloitte Digital Australia" ],
   "description": "Breakpoints SCSS Mixin and JavaScript tool, used to accelerate the development process of responsive pages.",
   "main": [
