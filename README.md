@@ -7,9 +7,17 @@ The SCSS and JS also allow for the ability to create static (non-responsive) sty
 
 ## Getting Started
 
+### Install via NPM
+
+To install via [npm](https://www.npmjs.com/), enter the following at the command line:
+
+```
+npm install ddbreakpoints
+```
+
 ### Install via Bower
 
-To install via the [bower](http://twitter.github.com/bower/) package repository, enter the following at the command line:
+To install via [bower](http://twitter.github.com/bower/), enter the following at the command line:
 
 ```
 bower install ddbreakpoints
