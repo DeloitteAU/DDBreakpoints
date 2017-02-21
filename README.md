@@ -310,6 +310,15 @@ $bp-print-max: 550 !default;
 
 ### JavaScript
 
+The JS library is wrapped in a [UMD](https://github.com/umdjs/umd) module, so it will play nice if you are using webpack or a similar tool.
+
+```js
+// Browserify example
+var bp = require('ddbreakpoints');
+```
+
+Otherwise, ```DD.bp``` is used as a namespace on the window object.
+
 There are two main functions for the JS library.
 
 #### `.get()`
