@@ -388,9 +388,10 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
-`1.0.7` - Dec 2016
+`1.1.0` - Feb 2017
 
 * Added .less version to the library + updated documentation with .less examples.
+* Updated JS to use the [Universal Module Definition](https://github.com/umdjs/umd) wrapper, falls back to `window.DD.bp` if required. (Thanks to @jeffdowdle).
 
 `1.0.6` - Oct 2016
 
