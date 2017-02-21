@@ -1,0 +1,198 @@
+/**
+ * Breakpoints for Less. Works with the Deloitte Digital DD.bp JavaScript
+ *
+ * @version 1.1.0
+ * @copyright 2012-2017 Deloitte Digital Australia - http://www.deloittedigital.com/au
+ * @author Deloitte Digital Australia deloittedigital@deloitte.com.au
+ * @license BSD 3-Clause (http://opensource.org/licenses/BSD-3-Clause)
+ */
+
+// Global variables
+@IS_RESPONSIVE: true;
+@FONT_BASE: 16;
+
+// Breakpoint options
+@bp-min-xxs: 359;
+@bp-min-xs: 480;
+@bp-min-s: 640;
+@bp-min-m: 768;
+@bp-min-l: 1024;
+@bp-min-xl: 1244;
+@bp-min-xxl: 1410;
+
+@bp-max-xxs: @bp-min-xs - 1;
+@bp-max-xs: @bp-min-s - 1;
+@bp-max-s: @bp-min-m - 1;
+@bp-max-m: @bp-min-l - 1;
+@bp-max-l: @bp-min-xl - 1;
+@bp-max-xl: @bp-min-xxl - 1;
+
+// range to be outputted for the static stylesheet
+@bp-min-static: unit(0, em);
+@bp-max-static: unit(@bp-max-l / @FONT_BASE, em);
+
+// maximum print size
+@bp-max-print: unit(550 / @FONT_BASE, em);
+
+// returns the EM value of a named "min" breakpoint
+.bp-to-em(false; @name) when (iskeyword(@name)) {
+  @bp-name-to-var-min: "bp-min-@{name}";
+  @bp-ems-result-min: unit(@@bp-name-to-var-min / @FONT_BASE, em);
+}
+
+// returns the EM value of a named "max" breakpoint
+.bp-to-em(true; @name) when (iskeyword(@name)) {
+  @bp-name-to-var-max: "bp-max-@{name}";
+  @bp-ems-result-max: unit(@@bp-name-to-var-max / @FONT_BASE, em);
+}
+
+// returns the EM value of a px value "min" breakpoint
+.bp-to-em(false; @px) when (isnumber(@px)) {
+  @bp-ems-result-min: unit(@px / @FONT_BASE, em);
+}
+
+// returns the EM value of a px value "max" breakpoint
+.bp-to-em(true; @px) when (isnumber(@px)) {
+  @bp-ems-result-max: unit(@px / @FONT_BASE, em);
+}
+
+// START output for responsive sites - width
+
+// rule for min-and-above based breakpoints
+.bp-generate-mq-min(true; @min; @rules) when (@min < @bp-max-print) {
+  @media (min-width: ~"@{min}") {
+    @rules();
+  }
+}
+
+.bp-generate-mq-min(true; @min; @rules) when (@min >= @bp-max-print) {
+  @media only screen and (min-width: ~"@{min}") {
+    @rules();
+  }
+}
+
+// rule for max-and-below based breakpoints
+.bp-generate-mq-max(true; @max; @rules) when (@max >= @bp-max-print) {
+  @media (max-width: ~"@{max}") {
+    @rules();
+  }
+}
+
+.bp-generate-mq-max(true; @max; @rules) when (@max < @bp-max-print) {
+  @media only screen and (max-width: ~"@{max}") {
+    @rules();
+  }
+}
+
+// rule for min-to-max based breakpoints
+.bp-generate-mq-between(true; @min; @max; @rules) {
+  @media only screen and (min-width: ~"@{min}") and (max-width: ~"@{max}") {
+    @rules();
+  }
+}
+
+// END output for responsive sites - width
+
+// START output for static sites - width
+
+// rule for min-and-above output when inside the static range
+.bp-generate-mq-min(false; @min; @rules) when (@min >= @bp-min-static) and (@min < @bp-max-static) {
+  @rules();
+}
+
+// rules for max-and-below output when inside the static range
+.bp-generate-mq-max(false; @max; @rules) when (@max >= @bp-max-static) {
+  @rules();
+}
+
+.bp-generate-mq-max(false; @max; @rules) {
+  // don't show anything
+}
+
+// rules for min-to-max output when inside the static range
+.bp-generate-mq-between(false; @min; @max; @rules) when (@min > @bp-max-static) and (@max < @bp-min-static) {
+ // don't show anything
+}
+
+.bp-generate-mq-between(false; @min; @max; @rules) when (@max < @bp-max-static) {
+ // don't show anything
+}
+
+.bp-generate-mq-between(false; @min; @max; @rules) {
+  @rules();
+}
+// END output for static sites - width
+
+// START output for responsive sites - height
+.bph-generate-mq-min(true; @min; @rules) {
+  @media only screen and (min-height: ~"@{min}") {
+    @rules();
+  }
+}
+
+// rule for max-and-below based breakpoints
+.bph-generate-mq-max(true; @max; @rules) {
+  @media only screen and (max-height: ~"@{max}") {
+    @rules();
+  }
+}
+
+// rule for min-to-max based breakpoints
+.bph-generate-mq-between(true; @min; @max; @rules) {
+  @media only screen and (min-height: ~"@{min}") and (max-height: ~"@{max}") {
+    @rules();
+  }
+}
+// END output for responsive sites - height
+
+// START output for static sites - height
+.bph-generate-mq-min(false; @min; @rules) {
+  // don't show anything
+}
+
+// rule for max-and-below based breakpoints
+.bph-generate-mq-max(false; @max; @rules) {
+  // don't show anything
+}
+
+// rule for min-to-max based breakpoints
+.bph-generate-mq-between(false; @min; @max; @rules) {
+  // don't show anything
+}
+// END output for static sites - height
+
+// START breakpoint - width
+.bp(@min; @rules;) {
+  .bp-to-em(false, @min);
+  .bp-generate-mq-min(@IS_RESPONSIVE, @bp-ems-result-min, @rules);
+}
+
+.bp(@min; @max; @rules) when (@min = 0) {
+  .bp-to-em(true, @max);
+  .bp-generate-mq-max(@IS_RESPONSIVE, @bp-ems-result-max, @rules);
+}
+
+.bp(@min; @max; @rules) when not (@min = 0) {
+  .bp-to-em(false, @min);
+  .bp-to-em(true, @max);
+  .bp-generate-mq-between(@IS_RESPONSIVE, @bp-ems-result-min, @bp-ems-result-max, @rules);
+}
+// END breakpoint - width
+
+// START breakpoint - height
+.bph(@min; @rules) {
+  .bp-to-em(false, @min);
+  .bph-generate-mq-min(@IS_RESPONSIVE, @bp-ems-result-min, @rules);
+}
+
+.bph(@min; @max; @rules) when (@min = 0) {
+  .bp-to-em(true, @max);
+  .bph-generate-mq-max(@IS_RESPONSIVE, @bp-ems-result-max, @rules);
+}
+
+.bph(@min; @max; @rules) when not (@min = 0) {
+  .bp-to-em(false, @min);
+  .bp-to-em(true, @max);
+  .bph-generate-mq-between(@IS_RESPONSIVE, @bp-ems-result-min, @bp-ems-result-max, @rules);
+}
+// END breakpoint - height

@@ -1,9 +1,9 @@
 ![Deloitte Digital](docs/deloittedigital-logo-white.png)
 
 # DDBreakpoints
-Breakpoints SCSS Mixin and JavaScript library, used to accelerate and simplify media query development during the development process of responsive pages.
+Breakpoints SCSS and Less Mixin and JavaScript library, used to accelerate and simplify media query development during the development process of responsive pages.
 
-The SCSS and JS also allow for the ability to create static (non-responsive) stylesheets as well by setting a variable allowing backwards support for non responsive browsers (like IE8) easily.
+The SCSS/Less and JS also allow for the ability to create static (non-responsive) stylesheets as well by setting a variable allowing backwards support for non responsive browsers/situations (like IE8, or when you need to import third party code that doesn't work responsively) easily.
 
 ## Getting Started
 
@@ -23,26 +23,44 @@ To install via [bower](http://twitter.github.com/bower/), enter the following at
 bower install ddbreakpoints
 ```
 
-### SCSS
+### SCSS/Less
 
-Import the SCSS into your own project
+Import the SCSS/Less into your own project
 
+*SCSS:*
 ```scss
 @import 'dd-breakpoints';
+```
+*Less:*
+```less
+@import 'dd-breakpoints.less';
 ```
 
 #### Usage
 
 At the most basic level, everything comes from a single mixin:
 
+*SCSS:*
 ```scss
 @include bp($min, $max:0, $property:width) {
     // your styles here
 }
 ```
 
+*Less:*
+```less
+.bp(@min, {
+    // your styles here
+}}
+// or
+.bp(@min, @max=0, {
+    // your styles here
+}}
+```
+
 The recommended usage for the mixin is to go mobile first:
 
+*SCSS:*
 ```scss
 .module {
     // base styles
@@ -50,7 +68,7 @@ The recommended usage for the mixin is to go mobile first:
     @include bp(m) {
         // medium styles
     }
-    
+
     @include bp(l) {
         // large styles
     }
@@ -62,8 +80,29 @@ The recommended usage for the mixin is to go mobile first:
 }
 ```
 
+*Less:*
+```less
+.module {
+    // base styles
+
+    .bp(m, {
+		// medium styles
+	});
+
+    .bp(l, {
+        // large styles
+    });
+
+    .bp(xl, {
+        // extra large styles
+        // not included in the static sheet
+    });
+}
+```
+
 But if you have to, you can go large first too:
 
+*SCSS:*
 ```scss
 .module {
     // desktop styles
@@ -84,8 +123,30 @@ But if you have to, you can go large first too:
 }
 ```
 
+*Less:*
+```less
+.module {
+    // desktop styles
+
+    .bp(0, l, {
+        // large and below styles
+    });
+
+    .bp(0, m, {
+        // medium and below styles
+        // not included in the static sheet
+    });
+
+    .bp(0, s, {
+        // small and below styles
+        // not included in the static sheet
+    });
+}
+```
+
 You can even use pixel based widths mixed with breakpoint names.
 
+*SCSS:*
 ```scss
 .module {
     // base styles
@@ -106,8 +167,30 @@ You can even use pixel based widths mixed with breakpoint names.
 }
 ```
 
+*Less:*
+```less
+.module {
+    // base styles
+
+    .bp(300, m, {
+        // between 300px (in ems) and medium breakpoint
+        // not included in the static sheet
+    });
+
+    .bp(m, 2000, {
+        // between medium breakpoint and 2000px (in ems)
+    });
+
+    .bp(200, 250, {
+        // be as specific as you need
+        // not included in the static sheet
+    });
+}
+```
+
 And you can also check against heights too
 
+*SCSS:*
 ```scss
 .module {
     // base styles
@@ -123,28 +206,52 @@ And you can also check against heights too
 }
 ```
 
+*Less:*
+```less
+.module {
+    // base styles
+
+    bph(0, 500, {
+        // between 0 and 500px high
+        // height breakpoints are never included in the static sheet
+    });
+
+    .bph(500, {
+        // above 500px high
+    });
+}
+```
+
 #### Options
 
-You can customise a number of options in the SCSS. When doing this, if you're also using the JS library, make sure you update the values to match there as well.
+You can customise a number of options in the SCSS/Less. When doing this, if you're also using the JS library, make sure you update the values to match there as well.
 
 ##### Flags
 
-Set these flags early in the document, they can be included after you include the breakpoint scss file, however should be set before any usage of the mixin.
+Set these flags early in the document, they can be included after you include the breakpoint SCSS/Less file, however should be set before any usage of the mixin.
 
+*SCSS:*
 ```scss
 $IS_RESPONSIVE: true; // [boolean] tells the mixin to either export media queries or not
 $FONT_BASE: 16; // [number] base font size (in px) of your site
 ```
 
+*Less:*
+```less
+@IS_RESPONSIVE: true; // [boolean] tells the mixin to either export media queries or not
+@FONT_BASE: 16; // [number] base font size (in px) of your site
+```
+
 ##### Breakpoints
 
-The default breakpoints can be updated simply by editing the following variables. These should be set *before* the scss mixin is included into the page.
+The default breakpoints can be updated simply by editing the following variables. These should be set *before* the mixin is included into the page for SCSS, and *after* the mixin is included into the page for Less.
 
 These default values have been chosen because they are the most common screen resolutions that we normally support.
 
+*SCSS:*
 ```scss
-$bp-xxs-min: 359; 
-$bp-xs-min: 480; 
+$bp-xxs-min: 359;
+$bp-xs-min: 480;
 $bp-s-min: 640;
 $bp-m-min: 768; // iPad portrait
 $bp-l-min: 1024; // iPad landscape
@@ -152,8 +259,22 @@ $bp-xl-min: 1244; // 1280px screen resolution minus scrollbars
 $bp-xxl-min: 1410; // 1440px screen resolution minus scrollbars
 ```
 
-You can also completely customise your list by setting the following:
+*Less:*
+```less
+@bp-min-xxs: 359;
+@bp-min-xs: 480;
+@bp-min-s: 640;
+@bp-min-m: 768; // iPad portrait
+@bp-min-l: 1024; // iPad landscape
+@bp-min-xl: 1244; // 1280px screen resolution minus scrollbars
+@bp-min-xxl: 1410; // 1440px screen resolution minus scrollbars
+```
 
+###### Custom Breakpoints list (SCSS 0nly)
+
+You can also completely customise your list in SCSS only by setting the following:
+
+*SCSS:*
 ```scss
 // customised - max numbers are the next breakpoints min minus 1px
 $bp-list-min: small 359, medium 768, large 1024, xlarge 1244;
@@ -161,6 +282,31 @@ $bp-list-max: small 767, medium 1023, large 1243;
 ```
 
 You don't need to set a maximum of the highest breakpoint.
+
+##### Static Stylesheet Range
+
+You can customise the static stylesheet range by setting the min size (should mostly be 0) and the max size range:
+
+*SCSS:*
+```scss
+$bp-static-min: 0;
+$bp-static-max: $bp-xl-max;
+```
+
+*Less:*
+```less
+@bp-min-static: unit(0, em);
+@bp-max-static: unit(@bp-max-l / @FONT_BASE, em);
+```
+##### Print Stylesheet Range (SCSS only)
+
+Similar to the static stylesheet range, SCSS allows for the ability to set a range for print styles as well:
+
+*SCSS:*
+```scss
+$bp-print-min: 0 !default;
+$bp-print-max: 550 !default;
+```
 
 ### JavaScript
 
@@ -250,6 +396,15 @@ DD.bp.options({
 Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
+
+`1.1.0` - Feb 2017
+
+* Added .less version to the library + updated documentation with .less examples.
+* Updated JS to use the [Universal Module Definition](https://github.com/umdjs/umd) wrapper, falls back to `window.DD.bp` if required. (Thanks to @jeffdowdle).
+
+`1.0.6` - Oct 2016
+
+* Added config section for the DXP FED framework to hook into.
 
 `1.0.5` - July 2016
 
