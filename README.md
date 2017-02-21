@@ -397,6 +397,10 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
+`1.1.1` - Feb 2017
+
+* Updated `bower.json` version number.
+
 `1.1.0` - Feb 2017
 
 * Added .less version to the library + updated documentation with .less examples.
