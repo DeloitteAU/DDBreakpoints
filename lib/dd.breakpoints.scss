@@ -29,11 +29,12 @@ $bp-s-max: $bp-m-min - 1;
 $bp-m-max: $bp-l-min - 1;
 $bp-l-max: $bp-xl-min - 1;
 $bp-xl-max: $bp-xxl-min - 1;
+$bp-xxl-max: $bp-xxl-min;
 
 // The list of breakpoints (order doesn't matter). If you add another
 // breakpoint be sure to add it here too
 $bp-list-min: xxs $bp-xxs-min, xs $bp-xs-min, s $bp-s-min, m $bp-m-min, l $bp-l-min, xl $bp-xl-min, xxl $bp-xxl-min;
-$bp-list-max: xxs $bp-xxs-max, xs $bp-xs-max, s $bp-s-max, m $bp-m-max, l $bp-l-max, xl $bp-xl-max;
+$bp-list-max: xxs $bp-xxs-max, xs $bp-xs-max, s $bp-s-max, m $bp-m-max, l $bp-l-max, xl $bp-xl-max, xxl $bp-xxl-max;
 
 // Range for the static stylesheet to use. Is used when $IS_RESPONSIVE is equal to false
 // and ignores breakpoints outside of the specified range
