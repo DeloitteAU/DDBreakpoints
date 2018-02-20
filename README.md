@@ -29,7 +29,7 @@ Import the SCSS/Less into your own project
 
 *SCSS:*
 ```scss
-@import "~ddbreakpoints/lib/dd.breakpoints"
+@import "~ddbreakpoints/lib/dd.breakpoints";
 ```
 *Less:*
 ```less
