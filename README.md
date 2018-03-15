@@ -310,6 +310,8 @@ $bp-print-max: 550 !default;
 
 ### JavaScript
 
+JSDoc documentation is published to [Doclets](https://doclets.io/DeloitteDigitalAPAC/DDBreakpoints).
+
 The JS library is wrapped in a [UMD](https://github.com/umdjs/umd) module, so it will play nice if you are using webpack or a similar tool.
 
 ```js
