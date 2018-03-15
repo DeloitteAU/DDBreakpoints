@@ -1,0 +1,3 @@
+files:
+  - lib/dd.breakpoints.js
+packageJson: package.json
