@@ -1,5 +1,5 @@
 {
-  "name": "ddbreakpoints",
+  "name": "@deloitte-digital-au/ddbreakpoints",
   "version": "2.0.0",
   "description": "Breakpoints SCSS Mixin and JavaScript tool, used to accelerate the development process of responsive pages.",
   "main": "lib/dd.breakpoints.js",
@@ -26,5 +26,8 @@
   "dxp": {
     "type": "library",
     "scss": "lib/dd.breakpoints.scss"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
