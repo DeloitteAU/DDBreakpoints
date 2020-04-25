@@ -41,7 +41,7 @@ The SCSS/Less and JS also allow for the ability to create static (non-responsive
 To install via [npm](https://www.npmjs.com/), enter the following at the command line:
 
 ```bash
-npm install ddbreakpoints
+npm install --save @deloitte-digital-au/ddbreakpoints
 ```
 
 ### Migrating from SCSS v1.x to v2.x
@@ -599,7 +599,7 @@ The JS library is wrapped in a [UMD](https://github.com/umdjs/umd) module, so it
 
 ```js
 // Browserify example
-var bp = require('ddbreakpoints');
+var bp = require('@deloitte-digital-au/ddbreakpoints');
 ```
 
 Otherwise, ```DD.bp``` is used as a namespace on the window object.
@@ -681,6 +681,10 @@ DD.bp.options({
 Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
+
+`2.0.1` - April 2020
+
+- Updated namespace to `@deloitte-digital-au/ddbreakpoints` and updated documentation to match.
 
 `2.0.0` - April 2020
 
