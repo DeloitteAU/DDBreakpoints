@@ -6,6 +6,34 @@ Breakpoints SCSS and Less Mixin and JavaScript library, used to accelerate and s
 
 The SCSS/Less and JS also allow for the ability to create static (non-responsive) stylesheets as well by setting a variable allowing backwards support for non responsive browsers/situations (like IE8, or when you need to import third party code that doesn't work responsively) easily.
 
+- [Getting Started](#getting-started)
+  - [Install via NPM](#install-via-npm)
+  - [Migrating from SCSS v1.x to v2.x](#migrating-from-scss-v1x-to-v2x)
+    - [Change the way you import the file](#change-the-way-you-import-the-file)
+    - [Change the main mixin to use the new bp namespace](#change-the-main-mixin-to-use-the-new-bp-namespace)
+  - [SCSS and Less](#scss-and-less)
+    - [Importing the library](#importing-the-library)
+    - [Usage](#usage)
+      - [Getting a width from a breakpoint name](#getting-a-width-from-a-breakpoint-name)
+    - [Options](#options)
+      - [Flags](#flags)
+      - [Breakpoints](#breakpoints)
+        - [Custom Breakpoints list](#custom-breakpoints-list)
+      - [Debug Mode](#debug-mode)
+      - [Static Stylesheet Range](#static-stylesheet-range)
+      - [Print Stylesheet Range](#print-stylesheet-range)
+  - [JavaScript](#javascript)
+    - [`.get()`](#-get---)
+    - [`.is()`](#-is---)
+    - [`.options()`](#-options---)
+  - [Change log](#change-log)
+- [Want to contribute?](#want-to-contribute-)
+- [Key Contributors](#key-contributors)
+- [Deloitte Digital Australia](#deloitte-digital-australia)
+- [Background](#background)
+- [Who is Deloitte Digital?](#who-is-deloitte-digital-)
+- [LICENSE (BSD-3-Clause)](#license--bsd-3-clause-)
+
 ## Getting Started
 
 ### Install via NPM
