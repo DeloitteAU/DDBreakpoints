@@ -55,7 +55,7 @@ You should use `@use` instead of `@import`, and you'll need to `@use` it in each
 You will also need to provide options previously set using global variables when you first `@use` the library. See the [Options](#options) section for details.
 
 ```scss
-@use "~ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
 ```
 
 #### Change the main mixin to use the new bp namespace
@@ -85,7 +85,7 @@ Import the SCSS/Less into your own project
 ***SCSS v2:***
 
 ```scss
-@use "~ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
 ```
 
 **Important**: *WIth the new SCSS module standard, you will need to import the library at the top of any file where it will be used.*
@@ -93,13 +93,13 @@ Import the SCSS/Less into your own project
 ***SCSS v1:***
 
 ```scss
-@import "~ddbreakpoints/lib/dd.breakpoints";
+@import "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints";
 ```
 
 ***Less:***
 
 ```less
-@import "~ddbreakpoints/lib/dd.breakpoints.less"
+@import "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints.less"
 ```
 
 #### Usage
@@ -419,7 +419,7 @@ Set these flags early in the document, they can be included after you include th
 With v2, global variables are no longer used. These values are now passed into DD Breakpoints on the first time using `@use`. Subsequent uses of the library do not require the variables to be re-set.
 
 ```scss
-@use "~ddbreakpoints/lib/dd.breakpoints" with (
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" with (
     $is-responsive: true,
     $base-font-size: 16
 );
@@ -450,7 +450,7 @@ These default values have been chosen because they are the most common screen re
 The new default breakpoints can be found below (we've added a couple of larger ones up to Full HD resolution).
 
 ```scss
-@use "~ddbreakpoints/lib/dd.breakpoints" with (
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" with (
     $breakpoints: (
         xxs: 359,
         xs: 480,
@@ -500,7 +500,7 @@ With v2, setting custom breakpoints is much simpler. Pass in a map of the smalle
 Add as many breakpoints as you like, and no need to set the maximum sizes anymore.
 
 ```scss
-@use "~ddbreakpoints/lib/dd.breakpoints" with (
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" with (
     $breakpoints: (
         xxs: 359,
         xs: 480,
@@ -530,7 +530,7 @@ You don't need to set a maximum of the highest breakpoint.
 *New in SCSS v2:* When debugging it's extremely helpful to know what breakpoint you're currently using. A small overlay can be added by using the `$dev-mode` properties on import.
 
 ```scss
-@use "~ddbreakpoints/lib/dd.breakpoints" with (
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" with (
     $dev-mode: (
         enabled: false, // enable or disable the CSS output
         selector: "body::after", // set the selector (should be a psuedo element)
@@ -547,7 +547,7 @@ You can customise the static stylesheet range by setting the min size (should mo
 ***SCSS v2:***
 
 ```scss
-@use "~ddbreakpoints/lib/dd.breakpoints" with (
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" with (
     $static: (
         min: 0,
         max: 1244
@@ -576,7 +576,7 @@ $bp-static-max: $bp-xl-max;
 ***SCSS v2:***
 
 ```scss
-@use "~ddbreakpoints/lib/dd.breakpoints" with (
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" with (
     $print: (
         min: 0,
         max: 550
