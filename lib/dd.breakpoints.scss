@@ -13,6 +13,18 @@
 $is-responsive: true !default; // toggles if responsive stylesheets are required - used for outputting legacy non-responsive stylesheets using the same code
 $base-font-size: 16 !default; // sets the base font size so that em to px conversions can be calculated correctly
 
+// developer mode
+$dev-mode: () !default;
+$_dev-mode: (
+	enabled: false,
+	selector: "body::after",
+	position: top left,
+	on-dark: false
+);
+
+// merge defaults with user config
+$_dev-mode: map.merge($_dev-mode, $dev-mode);
+
 // Min breakpoint sizes
 $breakpoints: (
 	xxs: 359,
@@ -271,4 +283,36 @@ $_breakpoints-max: _calc-max-bps();
 	@error "Invalid unit type #{$type}. Valid types are 'px', 'em' or 'rem'.";
 
 	@return 0;
+}
+
+// Developer Mode - displays a small panel indicating the current breakpoint name
+@if map.get($_dev-mode, "enabled") == true {
+	#{map.get($_dev-mode, "selector")} {
+		opacity: 0.5;
+		font-size: 10px;
+		display: block;
+		position: fixed;
+		z-index: 9999999;
+		padding: 0 5px;
+		font-family: monospace;
+		content: "none";
+
+		@if map.get($_dev-mode, "on-dark") == true {
+			color: #FFF;
+			background-color: #000;
+		} @else {
+			color: #000;
+			background-color: #FFF;
+		}
+
+		@each $prop in map.get($_dev-mode, "position") {
+			#{$prop}: 0;
+		}
+
+		@each $bp in $breakpoints {
+			@include get(nth($bp, 1)) {
+				content: "#{nth($bp, 1)}";
+			}
+		}
+	}
 }
