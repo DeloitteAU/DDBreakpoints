@@ -1,6 +1,7 @@
 ![Deloitte Digital](deloittedigital-logo-white.png)
 
 # DDBreakpoints
+
 Breakpoints SCSS and Less Mixin and JavaScript library, used to accelerate and simplify media query development during the development process of responsive pages.
 
 The SCSS/Less and JS also allow for the ability to create static (non-responsive) stylesheets as well by setting a variable allowing backwards support for non responsive browsers/situations (like IE8, or when you need to import third party code that doesn't work responsively) easily.
@@ -11,19 +12,43 @@ The SCSS/Less and JS also allow for the ability to create static (non-responsive
 
 To install via [npm](https://www.npmjs.com/), enter the following at the command line:
 
-```
+```bash
 npm install ddbreakpoints
 ```
 
-### Install via Bower
+### Migrating from SCSS v1.x to v2.x
 
-To install via [bower](http://twitter.github.com/bower/), enter the following at the command line:
+Be sure to read up on the new Sass Modules as most of the change in working style revolves around that.
 
+#### Change the way you import the file
+
+You should use `@use` instead of `@import`, and you'll need to `@use` it in each file where the mixin is used.
+
+You will also need to provide options previously set using global variables when you first `@use` the library. See the [Options](#options) section for details.
+
+```scss
+@use "~ddbreakpoints/lib/dd.breakpoints" as bp;
 ```
-bower install ddbreakpoints
+
+#### Change the main mixin to use the new bp namespace
+
+Replace:
+
+```scss
+@include bp($min, $max:0, $property:width) {
+    // your styles here
+}
 ```
 
-### SCSS/Less
+With:
+
+```scss
+@include bp.get($min, $max:0, $property:width) {
+    // your styles here
+}
+```
+
+### SCSS and Less
 
 #### Importing the library
 
@@ -132,8 +157,8 @@ The recommended usage for the mixin is to go mobile first:
     // base styles
 
     .bp(m, {
-		// medium styles
-	});
+        // medium styles
+    });
 
     .bp(l, {
         // large styles
@@ -335,9 +360,9 @@ And you can also check against heights too
 }
 ```
 
-##### Getting a width from a breakpoint name (SCSS v2 only)
+##### Getting a width from a breakpoint name
 
-By default this returns em, but you can set the optional second parameter to "rem" or "px".
+*SCSS v2 Only:* By default this returns em, but you can set the optional second parameter to "rem" or "px".
 
 ***SCSS v2:***
 
@@ -436,9 +461,9 @@ $bp-xxl-min: 1410; // 1440px screen resolution minus scrollbars
 @bp-min-xxl: 1410; // 1440px screen resolution minus scrollbars
 ```
 
-###### Custom Breakpoints list (SCSS 0nly)
+###### Custom Breakpoints list
 
-You can also completely customise your list in SCSS only by setting the following:
+*SCSS Only:* You can also completely customise your list in SCSS only by setting the following:
 
 ***SCSS v2:***
 
@@ -472,9 +497,9 @@ $bp-list-max: small 767, medium 1023, large 1243;
 
 You don't need to set a maximum of the highest breakpoint.
 
-##### Debug Mode (SCSS v2 Only)
+##### Debug Mode
 
-*New in SCSS v2*: When debugging it's extremely helpful to know what breakpoint you're currently using. A small overlay can be added by using the `$dev-mode` properties on import.
+*New in SCSS v2:* When debugging it's extremely helpful to know what breakpoint you're currently using. A small overlay can be added by using the `$dev-mode` properties on import.
 
 ```scss
 @use "~ddbreakpoints/lib/dd.breakpoints" with (
@@ -516,9 +541,9 @@ $bp-static-max: $bp-xl-max;
 @bp-max-static: unit(@bp-max-l / @FONT_BASE, em);
 ```
 
-##### Print Stylesheet Range (SCSS only)
+##### Print Stylesheet Range
 
-Similar to the static stylesheet range, SCSS allows for the ability to set a range for print styles as well:
+*SCSS Only:* Similar to the static stylesheet range, SCSS allows for the ability to set a range for print styles as well:
 
 ***SCSS v2:***
 
@@ -609,9 +634,9 @@ DD.bp.options(opts /* object */);
 
 There are three customisable options:
 
-* `baseFontSize` [number=16] Base font size of your site (browser default is normally 16px) this helps convert pixel widths to relative units for the media queries (using em units)
-* `isResponsive` [boolean=true] Set to false if the site shouldn't get a responsive stylesheet (e.g. IE8 and below)
-* `breakpoints` [Array] Use a custom list of name/pixel width breakpoints instead of the default in an array of `{ name: 'NAME', px: 000 }`
+- `baseFontSize` [number=16] Base font size of your site (browser default is normally 16px) this helps convert pixel widths to relative units for the media queries (using em units)
+- `isResponsive` [boolean=true] Set to false if the site shouldn't get a responsive stylesheet (e.g. IE8 and below)
+- `breakpoints` [Array] Use a custom list of name/pixel width breakpoints instead of the default in an array of `{ name: 'NAME', px: 000 }`
 
 ```javascript
 DD.bp.options({
@@ -631,81 +656,82 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 `2.0.0` - April 2020
 
-* **Major release**: Contains breaking changes and not backwards compatible due to the addition of support for [SASS Modules](https://sass-lang.com/blog/the-module-system-is-launched).
-* Updated documentation to provide examples of the difference from 1.x to 2.x
-* Only changes to the JS/Less libraries are including two additional default breakpoints to match the updated SCSS v2 default breakpoints
-* **New feature (for SCSS v2 only):** There is now a debug feature to display a small overlay that informs the user which breakpoint is currently viewed
+- **Major release**: Contains breaking changes and not backwards compatible due to the addition of support for [SASS Modules](https://sass-lang.com/blog/the-module-system-is-launched).
+- Updated documentation to provide examples of the difference from 1.x to 2.x
+- Only changes to the JS/Less libraries are including two additional default breakpoints to match the updated SCSS v2 default breakpoints
+- **New feature (for SCSS v2 only):** There is now a debug feature to display a small overlay that informs the user which breakpoint is currently viewed
 
 `1.1.1` - Feb 2017
 
-* Updated `bower.json` version number.
+- Updated `bower.json` version number.
 
 `1.1.0` - Feb 2017
 
-* Added .less version to the library + updated documentation with .less examples.
-* Updated JS to use the [Universal Module Definition](https://github.com/umdjs/umd) wrapper, falls back to `window.DD.bp` if required. (Thanks to @jeffdowdle).
+- Added .less version to the library + updated documentation with .less examples.
+- Updated JS to use the [Universal Module Definition](https://github.com/umdjs/umd) wrapper, falls back to `window.DD.bp` if required. (Thanks to @jeffdowdle).
 
 `1.0.6` - Oct 2016
 
-* Added config section for the DXP FED framework to hook into.
+- Added config section for the DXP FED framework to hook into.
 
 `1.0.5` - July 2016
 
-* Migrate GitHub organisation to: DeloitteDigitalAPAC.
+- Migrate GitHub organisation to: DeloitteDigitalAPAC.
 
 `1.0.3` & `1.0.4` - September 2015
 
-* Publish on npm.
+- Publish on npm.
 
 `1.0.2` - March 2015
 
-* Minor bug fix in options function, to allow setting of custom breakpoints.
+- Minor bug fix in options function, to allow setting of custom breakpoints.
 
 `1.0.1` - Feb 2015
 
-* Update to resolve issue with Bower getting an old tag
+- Update to resolve issue with Bower getting an old tag
 
 `1.0.0` - Feb 2015
 
-* Public release
-* Documentation
-* Cleanup
-* Automatic calculation of display logic for non-responsive stylesheets (previously was manual)
-* Added height based breakpoints
+- Public release
+- Documentation
+- Cleanup
+- Automatic calculation of display logic for non-responsive stylesheets (previously was manual)
+- Added height based breakpoints
 
 `0.1.1` - July 2014
 
-* Added support for inputting px based integers instead of just breakpoint names (suggested by @conhuynh)
+- Added support for inputting px based integers instead of just breakpoint names (suggested by @conhuynh)
 
 `0.1.0` - June 2014
 
-* Large rewrite
-* Dynamically generate breakpoints without multiple IF statements
-* Updated default number of breakpoints to 8
-* Include printer support
-* Changed the mixin name to `bp` to reduce RSI
+- Large rewrite
+- Dynamically generate breakpoints without multiple IF statements
+- Updated default number of breakpoints to 8
+- Include printer support
+- Changed the mixin name to `bp` to reduce RSI
 
 `0.0.2` - August 2013
 
-* Added check for responsive flag.
-* Moved static and responsive code into a single mixin
+- Added check for responsive flag.
+- Moved static and responsive code into a single mixin
 
 `0.0.1` - May 2013
 
-* Initial build. Inspired by http://css-tricks.com/naming-media-queries/
+- Initial build. Inspired by http://css-tricks.com/naming-media-queries/
 
 ## Want to contribute?
 
-* Got an amazing idea to make the plugin better?
-* Found an annoying bug?
+- Got an amazing idea to make the plugin better?
+- Found an annoying bug?
 
 Please don't hesitate to raise an issue through GitHub or open a pull request to show off your fancy pants coding skills - we'll really appreciate it!
 
 ## Key Contributors
 
 ### Deloitte Digital Australia
-* @dkeeghan
-* @keeganstreet
+
+- @dkeeghan
+- @keeganstreet
 
 ## Background
 
@@ -717,9 +743,7 @@ As we built more responsive websites, our philosophy for creating responsive sit
 
 Today, DDBreakpoints is used on almost every responsive project by Deloitte Digital in Australia... and now, it's available for your projects as well!
 
-
-
-
+---
 
 ## Who is Deloitte Digital?
 
@@ -730,4 +754,5 @@ Pioneered in Australia, Deloitte Digital is committed to helping clients unlock 
 [http://www.deloittedigital.com/au](http://www.deloittedigital.com/au)
 
 ## LICENSE (BSD-3-Clause)
+
 [View License](LICENSE)
