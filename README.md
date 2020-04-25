@@ -25,13 +25,26 @@ bower install ddbreakpoints
 
 ### SCSS/Less
 
+#### Importing the library
+
 Import the SCSS/Less into your own project
 
-*SCSS:*
+***SCSS v2:***
+
+```scss
+@use "~ddbreakpoints/lib/dd.breakpoints" as bp;
+```
+
+**Important**: *WIth the new SCSS module standard, you will need to import the library at the top of any file where it will be used.*
+
+***SCSS v1:***
+
 ```scss
 @import "~ddbreakpoints/lib/dd.breakpoints";
 ```
-*Less:*
+
+***Less:***
+
 ```less
 @import "~ddbreakpoints/lib/dd.breakpoints.less"
 ```
@@ -40,14 +53,24 @@ Import the SCSS/Less into your own project
 
 At the most basic level, everything comes from a single mixin:
 
-*SCSS:*
+***SCSS v2:***
+
+```scss
+@include bp.get($min, $max:0, $property:width) {
+    // your styles here
+}
+```
+
+***SCSS v1:***
+
 ```scss
 @include bp($min, $max:0, $property:width) {
     // your styles here
 }
 ```
 
-*Less:*
+***Less:***
+
 ```less
 .bp(@min, {
     // your styles here
@@ -60,7 +83,29 @@ At the most basic level, everything comes from a single mixin:
 
 The recommended usage for the mixin is to go mobile first:
 
-*SCSS:*
+***SCSS v2:***
+
+```scss
+.module {
+    // base styles
+
+    @include bp.get(m) {
+        // medium styles
+    }
+
+    @include bp.get(l) {
+        // large styles
+    }
+
+    @include bp.get(xl) {
+        // extra large styles
+        // not included in the static sheet
+    }
+}
+```
+
+***SCSS v1:***
+
 ```scss
 .module {
     // base styles
@@ -80,7 +125,8 @@ The recommended usage for the mixin is to go mobile first:
 }
 ```
 
-*Less:*
+***Less:***
+
 ```less
 .module {
     // base styles
@@ -102,7 +148,30 @@ The recommended usage for the mixin is to go mobile first:
 
 But if you have to, you can go large first too:
 
-*SCSS:*
+***SCSS v2:***
+
+```scss
+.module {
+    // desktop styles
+
+    @include bp.get(0, l) {
+        // large and below styles
+    }
+
+    @include bp.get(0, m) {
+        // medium and below styles
+        // not included in the static sheet
+    }
+
+    @include bp.get(0, s) {
+        // small and below styles
+        // not included in the static sheet
+    }
+}
+```
+
+***SCSS v1:***
+
 ```scss
 .module {
     // desktop styles
@@ -123,7 +192,8 @@ But if you have to, you can go large first too:
 }
 ```
 
-*Less:*
+***Less:***
+
 ```less
 .module {
     // desktop styles
@@ -146,7 +216,30 @@ But if you have to, you can go large first too:
 
 You can even use pixel based widths mixed with breakpoint names.
 
-*SCSS:*
+***SCSS v2:***
+
+```scss
+.module {
+    // base styles
+
+    @include bp.get(300, m) {
+        // between 300px (in ems) and medium breakpoint
+        // not included in the static sheet
+    }
+
+    @include bp.get(m, 2000) {
+        // between medium breakpoint and 2000px (in ems)
+    }
+
+    @include bp.get(200, 250) {
+        // be as specific as you need
+        // not included in the static sheet
+    }
+}
+```
+
+***SCSS v1:***
+
 ```scss
 .module {
     // base styles
@@ -167,7 +260,8 @@ You can even use pixel based widths mixed with breakpoint names.
 }
 ```
 
-*Less:*
+***Less:***
+
 ```less
 .module {
     // base styles
@@ -190,7 +284,25 @@ You can even use pixel based widths mixed with breakpoint names.
 
 And you can also check against heights too
 
-*SCSS:*
+***SCSS v2:***
+
+```scss
+.module {
+    // base styles
+
+    @include bp.get(0, 500, height) {
+        // between 0 and 500px high
+        // height breakpoints are never included in the static sheet
+    }
+
+    @include bp.get-height(0, 500) {
+        // exactly the same as above - shortcut
+    }
+}
+```
+
+***SCSS v1:***
+
 ```scss
 .module {
     // base styles
@@ -206,7 +318,8 @@ And you can also check against heights too
 }
 ```
 
-*Less:*
+***Less:***
+
 ```less
 .module {
     // base styles
@@ -222,6 +335,24 @@ And you can also check against heights too
 }
 ```
 
+##### Getting a width from a breakpoint name (SCSS v2 only)
+
+By default this returns em, but you can set the optional second parameter to "rem" or "px".
+
+***SCSS v2:***
+
+```scss
+.module {
+    width: bp.get-width-from-bp(l);
+
+    // be sure to escape the value when setting it to a CSS variable
+    --module-width: #{bp.get-width-from-bp(xxl)};
+
+    // return px instead of em
+    --module-width-px: #{bp.get-width-from-bp(xxl, "px")};
+}
+```
+
 #### Options
 
 You can customise a number of options in the SCSS/Less. When doing this, if you're also using the JS library, make sure you update the values to match there as well.
@@ -230,13 +361,26 @@ You can customise a number of options in the SCSS/Less. When doing this, if you'
 
 Set these flags early in the document, they can be included after you include the breakpoint SCSS/Less file, however should be set before any usage of the mixin.
 
-*SCSS:*
+***SCSS v2:***
+
+With v2, global variables are no longer used. These values are now passed into DD Breakpoints on the first time using `@use`. Subsequent uses of the library do not require the variables to be re-set.
+
+```scss
+@use "~ddbreakpoints/lib/dd.breakpoints" with (
+    $is-responsive: true,
+    $base-font-size: 16
+);
+```
+
+***SCSS v1:***
+
 ```scss
 $IS_RESPONSIVE: true; // [boolean] tells the mixin to either export media queries or not
 $FONT_BASE: 16; // [number] base font size (in px) of your site
 ```
 
-*Less:*
+***Less:***
+
 ```less
 @IS_RESPONSIVE: true; // [boolean] tells the mixin to either export media queries or not
 @FONT_BASE: 16; // [number] base font size (in px) of your site
@@ -248,7 +392,28 @@ The default breakpoints can be updated simply by editing the following variables
 
 These default values have been chosen because they are the most common screen resolutions that we normally support.
 
-*SCSS:*
+***SCSS v2:***
+
+The new default breakpoints can be found below (we've added a couple of larger ones up to Full HD resolution).
+
+```scss
+@use "~ddbreakpoints/lib/dd.breakpoints" with (
+    $breakpoints: (
+        xxs: 359,
+        xs: 480,
+        s: 640,
+        m: 768,
+        l: 1024,
+        xl: 1244,
+        xxl: 1410,
+        xxxl: 1570,
+        fhd: 1900,
+    )
+);
+```
+
+***SCSS v1:***
+
 ```scss
 $bp-xxs-min: 359;
 $bp-xs-min: 480;
@@ -259,7 +424,8 @@ $bp-xl-min: 1244; // 1280px screen resolution minus scrollbars
 $bp-xxl-min: 1410; // 1440px screen resolution minus scrollbars
 ```
 
-*Less:*
+***Less:***
+
 ```less
 @bp-min-xxs: 359;
 @bp-min-xs: 480;
@@ -274,7 +440,30 @@ $bp-xxl-min: 1410; // 1440px screen resolution minus scrollbars
 
 You can also completely customise your list in SCSS only by setting the following:
 
-*SCSS:*
+***SCSS v2:***
+
+With v2, setting custom breakpoints is much simpler. Pass in a map of the smallest breakpoint size in pixels from smallest to largest breakpoint, and the library will figure out the rest.
+
+Add as many breakpoints as you like, and no need to set the maximum sizes anymore.
+
+```scss
+@use "~ddbreakpoints/lib/dd.breakpoints" with (
+    $breakpoints: (
+        xxs: 359,
+        xs: 480,
+        s: 640,
+        m: 768,
+        l: 1024,
+        xl: 1244,
+        xxl: 1410,
+        xxxl: 1570,
+        fhd: 1900,
+    )
+);
+```
+
+***SCSS v1:***
+
 ```scss
 // customised - max numbers are the next breakpoints min minus 1px
 $bp-list-min: small 359, medium 768, large 1024, xlarge 1244;
@@ -283,26 +472,67 @@ $bp-list-max: small 767, medium 1023, large 1243;
 
 You don't need to set a maximum of the highest breakpoint.
 
+##### Debug Mode (SCSS v2 Only)
+
+*New in SCSS v2*: When debugging it's extremely helpful to know what breakpoint you're currently using. A small overlay can be added by using the `$dev-mode` properties on import.
+
+```scss
+@use "~ddbreakpoints/lib/dd.breakpoints" with (
+    $dev-mode: (
+        enabled: false, // enable or disable the CSS output
+        selector: "body::after", // set the selector (should be a psuedo element)
+        position: top left, // set the vertical and horizontal position - valid combinations are one of top or bottom, and one of left or right (order doesn't matter)
+        on-dark: false // by default it's black text on white, this property will switch it to white text on black
+    )
+);
+```
+
 ##### Static Stylesheet Range
 
 You can customise the static stylesheet range by setting the min size (should mostly be 0) and the max size range:
 
-*SCSS:*
+***SCSS v2:***
+
+```scss
+@use "~ddbreakpoints/lib/dd.breakpoints" with (
+    $static: (
+        min: 0,
+        max: 1244
+    )
+);
+```
+
+***SCSS v1:***
+
 ```scss
 $bp-static-min: 0;
 $bp-static-max: $bp-xl-max;
 ```
 
-*Less:*
+***Less:***
+
 ```less
 @bp-min-static: unit(0, em);
 @bp-max-static: unit(@bp-max-l / @FONT_BASE, em);
 ```
+
 ##### Print Stylesheet Range (SCSS only)
 
 Similar to the static stylesheet range, SCSS allows for the ability to set a range for print styles as well:
 
-*SCSS:*
+***SCSS v2:***
+
+```scss
+@use "~ddbreakpoints/lib/dd.breakpoints" with (
+    $print: (
+        min: 0,
+        max: 550
+    )
+);
+```
+
+***SCSS v1:***
+
 ```scss
 $bp-print-min: 0 !default;
 $bp-print-max: 550 !default;
@@ -398,6 +628,13 @@ DD.bp.options({
 Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
+
+`2.0.0` - April 2020
+
+* **Major release**: Contains breaking changes and not backwards compatible due to the addition of support for [SASS Modules](https://sass-lang.com/blog/the-module-system-is-launched).
+* Updated documentation to provide examples of the difference from 1.x to 2.x
+* Only changes to the JS/Less libraries are including two additional default breakpoints to match the updated SCSS v2 default breakpoints
+* **New feature (for SCSS v2 only):** There is now a debug feature to display a small overlay that informs the user which breakpoint is currently viewed
 
 `1.1.1` - Feb 2017
 
