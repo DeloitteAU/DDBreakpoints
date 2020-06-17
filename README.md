@@ -682,6 +682,10 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
+`2.0.2` - June 2020
+
+- Resolved bug in max breakpoints calculations when using `bp.get(min, max)`.
+
 `2.0.1` - April 2020
 
 - Updated namespace to `@deloitte-digital-au/ddbreakpoints` and updated documentation to match.

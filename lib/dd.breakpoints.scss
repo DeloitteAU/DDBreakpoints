@@ -1,7 +1,7 @@
 /**
  * Breakpoints for SCSS. Works with the Deloitte Digital DD.bp JavaScript
  *
- * @version 2.0.1
+ * @version 2.0.2
  * @copyright 2012-2020 Deloitte Digital Australia - http://www.deloittedigital.com/au
  * @author Deloitte Digital Australia deloittedigital@deloitte.com.au
  * @license BSD 3-Clause (http://opensource.org/licenses/BSD-3-Clause)
@@ -51,9 +51,6 @@ $print: (
 	max: 550
 ) !default;
 
-// Max breakpoint sizes
-$_breakpoints-max: _calc-max-bps();
-
 // Automatically calculate the max breakpoints based on the min breakpoints provided
 @function _calc-max-bps() {
 	$bps-max: ();
@@ -64,11 +61,15 @@ $_breakpoints-max: _calc-max-bps();
 			$key: nth($bp, 1);
 		} @else {
 			$bps-max: map.merge($bps-max, (#{$key}: nth($bp, 2) - 1));
+			$key: nth($bp, 1);
 		}
 	}
 
 	@return $bps-max;
 }
+
+// Max breakpoint sizes
+$_breakpoints-max: _calc-max-bps();
 
 // Adds the em unit to a number
 @function _add-em($number, $type: "em") {
