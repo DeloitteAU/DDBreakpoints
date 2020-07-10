@@ -604,6 +604,17 @@ var bp = require('@deloitte-digital-au/ddbreakpoints');
 
 Otherwise, ```DD.bp``` is used as a namespace on the window object.
 
+#### ES6 version
+
+```js
+// ES6
+import DDBreakpoints from '@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints.es6';
+```
+
+There is also an ES6 version that follows the exact same approach as the UMD version.
+
+### The library
+
 There are two main functions for the JS library.
 
 #### `.get()`
@@ -622,6 +633,20 @@ DD.bp.get(0, 500);
 
 // string notation
 DD.bp.get('s,l');
+```
+
+Or in ES6 replace `DD.bp` with `DDBreakpoints` (or whatever variable you've assigned the import to).
+
+```javascript
+DDBreakpoints.get(min /* string || number */, max = 0 /* string || number */, property = 'width' /* string */);
+
+// examples
+DDBreakpoints.get('s');
+DDBreakpoints.get('s', 'l');
+DDBreakpoints.get(0, 500);
+
+// string notation
+DDBreakpoints.get('s,l');
 ```
 
 There is also a shortcut function for height based media queries
@@ -681,6 +706,10 @@ DD.bp.options({
 Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
+
+`2.0.3` - July 2020
+
+- Updated JS library to support es6 while maintaining old version for backwards compatibility. Use `dd.breakpoints.es6.js` for the es6 version.
 
 `2.0.2` - June 2020
 
