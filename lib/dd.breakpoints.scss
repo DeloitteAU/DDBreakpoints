@@ -1,13 +1,14 @@
 /**
  * Breakpoints for SCSS. Works with the Deloitte Digital DD.bp JavaScript
  *
- * @version 2.0.3
- * @copyright 2012-2020 Deloitte Digital Australia - http://www.deloittedigital.com/au
+ * @version 2.0.4
+ * @copyright 2012-2021 Deloitte Digital Australia - http://www.deloittedigital.com/au
  * @author Deloitte Digital Australia deloittedigital@deloitte.com.au
  * @license BSD 3-Clause (http://opensource.org/licenses/BSD-3-Clause)
  */
 
 @use "sass:map";
+@use "sass:math";
 
 // Global variables
 $is-responsive: true !default; // toggles if responsive stylesheets are required - used for outputting legacy non-responsive stylesheets using the same code
@@ -80,7 +81,7 @@ $_breakpoints-max: _calc-max-bps();
 			$unit: 1rem;
 		}
 
-		@return $number / ($number * 0 + 1) * $unit;
+		@return math.div($number, $number * 0 + 1) * $unit;
 	} @else {
 		@error "Expected number but was passed #{type_of($number)}: #{$number}";
 	}
@@ -88,7 +89,7 @@ $_breakpoints-max: _calc-max-bps();
 
 // Converts px to ems using the $base-font-size global variable
 @function _px-to-ems($px) {
-	@return $px / $base-font-size;
+	@return math.div($px, $base-font-size);
 }
 
 // Converts a bp name (e.g. l) to the px variable then to ems

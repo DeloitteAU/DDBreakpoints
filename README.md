@@ -707,6 +707,10 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
+`2.0.4` - Aug 2021
+
+- Updated SCSS to support Dart SASS 2.0 by removing `a / b` and replacing with `math.div(a, b)`.
+
 `2.0.3` - July 2020
 
 - Updated JS library to support es6 while maintaining old version for backwards compatibility. Use `dd.breakpoints.es6.js` for the es6 version.
