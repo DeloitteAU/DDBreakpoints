@@ -707,6 +707,10 @@ Make sure to ensure that the values used here match the values used in the SCSS.
 
 ## Change log
 
+`2.0.5` - Mar 2025
+
+- Updated SCSS to reference full libraries for `sass:map` and `sass:meta` (e.g. `meta.type_of` instead of `type_of`) remove warnings when compiling.
+
 `2.0.4` - Aug 2021
 
 - Updated SCSS to support Dart SASS 2.0 by removing `a / b` and replacing with `math.div(a, b)`.

@@ -1,14 +1,16 @@
 /**
  * Breakpoints for SCSS. Works with the Deloitte Digital DD.bp JavaScript
  *
- * @version 2.0.4
- * @copyright 2012-2021 Deloitte Digital Australia - http://www.deloittedigital.com/au
+ * @version 2.0.5
+ * @copyright 2012-2024 Deloitte Digital Australia - http://www.deloittedigital.com/au
  * @author Deloitte Digital Australia deloittedigital@deloitte.com.au
  * @license BSD 3-Clause (http://opensource.org/licenses/BSD-3-Clause)
  */
 
 @use "sass:map";
 @use "sass:math";
+@use "sass:list";
+@use "sass:meta";
 
 // Global variables
 $is-responsive: true !default; // toggles if responsive stylesheets are required - used for outputting legacy non-responsive stylesheets using the same code
@@ -59,10 +61,10 @@ $print: (
 
 	@each $bp in $breakpoints {
 		@if $key == false {
-			$key: nth($bp, 1);
+			$key: list.nth($bp, 1);
 		} @else {
-			$bps-max: map.merge($bps-max, (#{$key}: nth($bp, 2) - 1));
-			$key: nth($bp, 1);
+			$bps-max: map.merge($bps-max, (#{$key}: list.nth($bp, 2) - 1));
+			$key: list.nth($bp, 1);
 		}
 	}
 
@@ -74,7 +76,7 @@ $_breakpoints-max: _calc-max-bps();
 
 // Adds the em unit to a number
 @function _add-em($number, $type: "em") {
-	@if type_of($number) == "number" {
+	@if meta.type_of($number) == "number" {
 		$unit: 1em;
 
 		@if $type == "rem" {
@@ -83,7 +85,7 @@ $_breakpoints-max: _calc-max-bps();
 
 		@return math.div($number, $number * 0 + 1) * $unit;
 	} @else {
-		@error "Expected number but was passed #{type_of($number)}: #{$number}";
+		@error "Expected number but was passed #{meta.type_of($number)}: #{$number}";
 	}
 }
 
@@ -94,7 +96,7 @@ $_breakpoints-max: _calc-max-bps();
 
 // Converts a bp name (e.g. l) to the px variable then to ems
 @function _bp-to-ems($bp, $ismax: false) {
-	@if type_of($bp) == "number" {
+	@if meta.type_of($bp) == "number" {
 		@return _px-to-ems($bp);
 	}
 
@@ -312,8 +314,8 @@ $_breakpoints-max: _calc-max-bps();
 		}
 
 		@each $bp in $breakpoints {
-			@include get(nth($bp, 1)) {
-				content: "#{nth($bp, 1)}";
+			@include get(list.nth($bp, 1)) {
+				content: "#{list.nth($bp, 1)}";
 			}
 		}
 	}
